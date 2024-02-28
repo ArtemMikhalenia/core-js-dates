@@ -171,8 +171,14 @@ function isDateInPeriod(date, period) {
  */
 function formatDate(date) {
   const dt = new Date(date);
-  dt.setHours(dt.getHours() - 3);
-  return dt.toLocaleString();
+  const month = String(dt.getUTCMonth() + 1);
+  const day = String(dt.getUTCDate());
+  const year = dt.getUTCFullYear();
+  const time = dt.toLocaleTimeString('en-US', {
+    hour12: true,
+    timeZone: 'UTC',
+  });
+  return `${month}/${day}/${year}, ${time}`;
 }
 
 /**
