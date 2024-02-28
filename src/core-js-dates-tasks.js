@@ -99,28 +99,9 @@ function getDayName(date) {
  */
 function getNextFriday(date) {
   const dt = new Date(date);
-
-  let newdate = '';
-
-  let day = dt.getDate();
-  const month = dt.getMonth();
-  const year = dt.getFullYear();
-
-  if (new Date(year, month, day).getDay() === 5) {
-    day += 1;
-  }
-
-  for (let i = 0; i <= 7; i += 1) {
-    newdate = new Date(year, month, day + i, 0, 0, 0);
-    const friday = newdate.toLocaleDateString('en-US', { weekday: 'short' });
-    if (friday === 'Fri') {
-      break;
-    }
-  }
-
-  newdate.setHours(newdate.getHours() + 3);
-
-  return newdate;
+  const day = date.getDate() + ((5 - date.getDay() + 7) % 7 || 7);
+  dt.setDate(day);
+  return dt;
 }
 
 /**
