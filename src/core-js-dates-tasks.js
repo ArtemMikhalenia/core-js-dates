@@ -97,8 +97,30 @@ function getDayName(date) {
  * Date('2024-02-13T00:00:00Z') => Date('2024-02-16T00:00:00Z')
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
-function getNextFriday(/* date */) {
-  throw new Error('Not implemented');
+function getNextFriday(date) {
+  const dt = new Date(date);
+
+  let newdate = '';
+
+  let day = dt.getDate();
+  const month = dt.getMonth();
+  const year = dt.getFullYear();
+
+  if (new Date(year, month, day).getDay() === 5) {
+    day += 1;
+  }
+
+  for (let i = 0; i <= 7; i += 1) {
+    newdate = new Date(year, month, day + i, 0, 0, 0);
+    const friday = newdate.toLocaleDateString('en-US', { weekday: 'short' });
+    if (friday === 'Fri') {
+      break;
+    }
+  }
+
+  newdate.setHours(newdate.getHours() + 3);
+
+  return newdate;
 }
 
 /**
